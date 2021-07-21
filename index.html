@@ -1,0 +1,828 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+  <head>
+    <title>Programación avanzada en R</title>
+    <meta charset="utf-8" />
+    <meta name="author" content="  Creative Commons Attribution 4.0 International License" />
+    <script src="taller_estructuras-de-control_files/header-attrs-2.8/header-attrs.js"></script>
+    <link href="taller_estructuras-de-control_files/tile-view-0.2.6/tile-view.css" rel="stylesheet" />
+    <script src="taller_estructuras-de-control_files/tile-view-0.2.6/tile-view.js"></script>
+    <link href="taller_estructuras-de-control_files/animate.css-3.7.2/animate.xaringan.css" rel="stylesheet" />
+    <link href="taller_estructuras-de-control_files/tachyons-4.12.0/tachyons.min.css" rel="stylesheet" />
+    <script src="taller_estructuras-de-control_files/freezeframe-5.0.2/freezeframe.min.js"></script>
+    <script src="taller_estructuras-de-control_files/xaringanExtra-freezeframe-0.0.1/freezeframe-init.js"></script>
+    <script id="xaringanExtra-freezeframe-options" type="application/json">{"selector":"img[src$=\"gif\"]","trigger":"click","overlay":false,"responsive":true,"warnings":true}</script>
+    <script src="taller_estructuras-de-control_files/clipboard-2.0.6/clipboard.min.js"></script>
+    <link href="taller_estructuras-de-control_files/xaringanExtra-clipboard-0.2.6/xaringanExtra-clipboard.css" rel="stylesheet" />
+    <script src="taller_estructuras-de-control_files/xaringanExtra-clipboard-0.2.6/xaringanExtra-clipboard.js"></script>
+    <script>window.xaringanExtraClipboard(null, {"button":"Copy Code","success":"Copied!","error":"Press Ctrl+C to Copy"})</script>
+    <script type="application/json" id="xaringanExtra-editable-docid">{"id":"x5ebfb01d07147638137a6828c0d25c3","expires":1}</script>
+    <script src="taller_estructuras-de-control_files/himalaya-1.1.0/himalaya.js"></script>
+    <script src="taller_estructuras-de-control_files/js-cookie-3.0.0/js.cookie.js"></script>
+    <link href="taller_estructuras-de-control_files/editable-0.2.6/editable.css" rel="stylesheet" />
+    <script src="taller_estructuras-de-control_files/editable-0.2.6/editable.js"></script>
+    <link rel="stylesheet" href="xaringan-themer.css" type="text/css" />
+  </head>
+  <body>
+    <textarea id="source">
+class: center, middle, inverse, title-slide
+
+# Programación avanzada en R
+## Escuela de Invierno - Julio 2021 <br> Gabriela Mathieu
+### <a rel="license" href="http://creativecommons.org/licenses/by/4.0/"><img alt="Creative Commons License" style="border-width:0" src="https://i.creativecommons.org/l/by/4.0/88x31.png" /></a><br /> <a rel="license" href="http://creativecommons.org/licenses/by/4.0/">Creative Commons Attribution 4.0 International License</a>
+
+---
+
+
+
+
+
+
+
+
+
+
+&lt;style type="text/css"&gt;
+.code-bg-palegreen .remark-code, .code-bg-palegreen .remark-code * {
+ background-color:palegreen!important;
+}
+
+.code-bg-skyblue .remark-code, .code-bg-skyblue .remark-code * {
+ background-color:skyblue!important;
+}
+&lt;/style&gt;
+
+# ¿Qué haremos hoy?
+
+- Estructuras de control
+
+
+- Condicionales: if-else
+
+
+- Iterativas: for, repeat, while, break, next
+
+- Vectorización
+
+---
+# Estructuras de control 
+
+
+- Permiten &lt;span style=" font-weight: bold;    border-radius: 4px; padding-right: 4px; padding-left: 4px; background-color: #b3e2cd !important;" &gt;controlar el flujo de ejecución&lt;/span&gt; de una serie de expresiones de R.
+&lt;br&gt;&lt;br&gt;
+--
+
+
+- En general se usan dentro de funciones o cuando se escriben expresiones "largas".
+&lt;br&gt;&lt;br&gt;
+--
+
+- Las estructuras de control se clasifican en &lt;span style=" font-weight: bold;    border-radius: 4px; padding-right: 4px; padding-left: 4px; background-color: #b3e2cd !important;" &gt;condicionales&lt;/span&gt; e &lt;span style=" font-weight: bold;    border-radius: 4px; padding-right: 4px; padding-left: 4px; background-color: #b3e2cd !important;" &gt;iterativas&lt;/span&gt;.
+&lt;br&gt;&lt;br&gt;
+--
+
+- Todas son &lt;span style=" font-weight: bold;    border-radius: 4px; padding-right: 4px; padding-left: 4px; background-color: #b3e2cd !important;" &gt;palabras reservadas&lt;/span&gt; que no se pueden usar para denominar obejtos ni funciones (if, while, for, break, next, repeat).
+
+---
+# Estructuras de control
+
+- &lt;span style=" font-weight: bold;    border-radius: 4px; padding-right: 4px; padding-left: 4px; background-color: #b3e2cd !important;" &gt;if&lt;/span&gt;, &lt;span style=" font-weight: bold;    border-radius: 4px; padding-right: 4px; padding-left: 4px; background-color: #b3e2cd !important;" &gt;else&lt;/span&gt;: testean una condición y actúan en consecuencia
+&lt;br&gt;&lt;br&gt;
+--
+
+- &lt;span style=" font-weight: bold;    border-radius: 4px; padding-right: 4px; padding-left: 4px; background-color: #b3e2cd !important;" &gt;for&lt;/span&gt;: ejecuta un loop (bucle) un número fijo de veces
+&lt;br&gt;&lt;br&gt;
+--
+
+- &lt;span style=" font-weight: bold;    border-radius: 4px; padding-right: 4px; padding-left: 4px; background-color: #b3e2cd !important;" &gt;while&lt;/span&gt;: ejecuta un loop mientras una condición se cumple (es true)
+&lt;br&gt;&lt;br&gt;
+--
+
+- &lt;span style=" font-weight: bold;    border-radius: 4px; padding-right: 4px; padding-left: 4px; background-color: #b3e2cd !important;" &gt;repeat&lt;/span&gt;: ejecuta un loop infinitamente (must break out of it to stop)
+&lt;br&gt;&lt;br&gt;
+--
+
+- &lt;span style=" font-weight: bold;    border-radius: 4px; padding-right: 4px; padding-left: 4px; background-color: #b3e2cd !important;" &gt;break&lt;/span&gt;: corta la ejecución de un loop
+&lt;br&gt;&lt;br&gt;
+--
+
+- &lt;span style=" font-weight: bold;    border-radius: 4px; padding-right: 4px; padding-left: 4px; background-color: #b3e2cd !important;" &gt;next&lt;/span&gt;: salta una iteración de un loop
+&lt;br&gt;&lt;br&gt;
+--
+
+- Para pedir la ayuda de if debo hacer `help("if")`
+
+---
+# if - else
+
+
+La estructura if-else permite &lt;span style=" font-weight: bold;    border-radius: 4px; padding-right: 4px; padding-left: 4px; background-color: #b3e2cd !important;" &gt;testear una condición&lt;/span&gt; y ejecuta un código si se cumple (es true) y otro si no se cumple (es false).
+--
+
+
+```r
+if (&lt;condicion&gt;) {
+  # hace algo
+} else {
+  # hace otra cosa
+}
+```
+--
+
+La forma más básica es usar solo if.
+--
+
+
+
+```r
+if (&lt;condicion&gt;) {
+  # hace algo
+} 
+```
+
+Si la condición no se cumple (es FALSE), el código no hace nada. 
+&lt;br&gt;&lt;br&gt;
+--
+
+Cuando se escribe la condición y la orden  en la misma línea no es necesario usar llaves pero es una buena práctica usarlas.
+
+
+---
+# Ejemplo if-else
+
+- Sorteo un número del 1 al 45 con la función &lt;span style=" font-weight: bold;    border-radius: 4px; padding-right: 4px; padding-left: 4px; background-color: #b3e2cd !important;" &gt;sample()&lt;/span&gt; y lo guardo en el objeto x.
+&lt;br&gt;&lt;br&gt;
+--
+
+- Evalúo si x es mayor a 10 y le asigno al objeto z el valor 1, de lo contrario le asigno el valor 0.
+--
+
+
+```r
+x &lt;- sample(x = 1:50, size = 1)
+
+if (x &gt; 10) {
+      z &lt;- 1
+} else {
+      z &lt;- 0
+}
+```
+--
+
+El valor de z depende de si x es mayor a 10 o no. 
+
+
+```r
+z
+```
+
+```
+[1] 1
+```
+
+---
+# Ejemplo
+
+- Exporto un objeto a formato RData si existe en mi espacio de trabajo
+&lt;br&gt;&lt;br&gt;
+--
+
+- Dentro de la función &lt;span style=" font-weight: bold;    border-radius: 4px; padding-right: 4px; padding-left: 4px; background-color: #b3e2cd !important;" &gt;exists()&lt;/span&gt; hay que definir el nombre del objeto entre comillas.
+&lt;br&gt;&lt;br&gt;
+--
+
+- De esta manera evito que me devuelva un error cuando no existe
+&lt;br&gt;&lt;br&gt;
+--
+
+
+```r
+if (exists("atletas")) {
+ save(atletas, file = "atletas.RData")
+}
+
+if (exists("naciones")) {
+ save(naciones, file = "naciones.RData")
+}
+```
+
+
+---
+# if vectorizado 
+
+- La instrucción if acepta en la &lt;span style=" font-weight: bold;    border-radius: 4px; padding-right: 4px; padding-left: 4px; background-color: #b3e2cd !important;" &gt;condición lógica un único valor lógico&lt;/span&gt;.
+
+- Si pasamos un vector lógico con una longitud mayor que uno, R nos dará un &lt;span style=" font-weight: bold;    border-radius: 4px; padding-right: 4px; padding-left: 4px; background-color: #b3e2cd !important;" &gt;warning&lt;/span&gt; (advertencia) indicándonos que hemos introducido múltiples opciones, pero que únicamente la primera será utilizada:
+
+
+```r
+# sorteo 5 números
+x &lt;- sample(1:45, size = 5)
+
+if (x &gt; 10) {
+      z &lt;- 1
+} else {
+      z &lt;- 0
+}
+```
+
+--
+
+- R nos proporciona la función ifelse() para este cometido.
+
+```r
+z &lt;- ifelse(x &gt; 10, 1, 0)
+```
+
+---
+# if - else if - else
+
+Si se quieren testear una &lt;span style=" font-weight: bold;    border-radius: 4px; padding-right: 4px; padding-left: 4px; background-color: #b3e2cd !important;" &gt;serie de condiciones&lt;/span&gt; se deben agregar else if intermedios entre if y else, tantos como condiciones adicionales.
+
+
+```r
+if (&lt;condicion1&gt;) {
+        # hacer algo
+} else if (&lt;condicion2&gt;)  {
+        # hacer otra cosa
+} else {
+        # hacer otra cosa diferente
+}
+```
+
+
+
+---
+# Ejercicio 
+
+- Crea un vector que se llame cap y tome el valor 2, otro vector que se llame cnf y tome el valor 1.
+
+- Crea una estructura if-else if- else que:
+  - si cap &gt; cnf imprima el mensaje "ganó Peñarol"
+  - si cap &lt; cnf imprima el mensaje "ganó Nacional"
+  - en caso contrario imprima "empate"
+  
+
+---
+# Estructuras de control iterativas
+
+.left-column[
+&lt;br&gt;&lt;br&gt;&lt;br&gt;
+
+&lt;img src="https://media.giphy.com/media/t6lGyf3dk9qBEXhTj8/giphy.gif" width="10%" style="display: block; margin: auto;" /&gt;
+]
+
+.right-column[
+
+- Las &lt;span style=" font-weight: bold;    border-radius: 4px; padding-right: 4px; padding-left: 4px; background-color: #b3e2cd !important;" &gt;instrucciones de repetición&lt;/span&gt;, de iteración o bucles, facilitan la repetición de un bloque de instrucciones, &lt;span style=" font-weight: bold;    border-radius: 4px; padding-right: 4px; padding-left: 4px; background-color: #b3e2cd !important;" &gt;un número determinado de veces&lt;/span&gt; o &lt;span style=" font-weight: bold;    border-radius: 4px; padding-right: 4px; padding-left: 4px; background-color: #b3e2cd !important;" &gt;mientras se cumpla una condición&lt;/span&gt;.
+
+- Por lo general, existen dos tipos de estructuras iterativas o bucles en los lenguajes de programación.
+
+  - &lt;span style=" font-weight: bold;    border-radius: 4px; padding-right: 4px; padding-left: 4px; background-color: #b3e2cd !important;" &gt;for&lt;/span&gt;: un tipo de bucle que se ejecuta un número preestablecido de veces, que es controlado por un contador o índice, incrementado en cada iteración.
+  - &lt;span style=" font-weight: bold;    border-radius: 4px; padding-right: 4px; padding-left: 4px; background-color: #b3e2cd !important;" &gt;while&lt;/span&gt;, &lt;span style=" font-weight: bold;    border-radius: 4px; padding-right: 4px; padding-left: 4px; background-color: #b3e2cd !important;" &gt;repeat&lt;/span&gt;: un tipo de bucle que se ejecuta mientras se cumple una condición. Esta condición se comprueba al principio (while) o el final de la construcción (repeat). 
+]
+
+---
+# for 
+
+- El bucle for es una estructura iterativa que &lt;span style=" font-weight: bold;    border-radius: 4px; padding-right: 4px; padding-left: 4px; background-color: #b3e2cd !important;" &gt;se ejecuta un número preestablecido de veces&lt;/span&gt;
+&lt;br&gt;&lt;br&gt;
+--
+
+- Este número &lt;span style=" font-weight: bold;    border-radius: 4px; padding-right: 4px; padding-left: 4px; background-color: #b3e2cd !important;" &gt;es controlado por un contador o índice&lt;/span&gt;, que se incrementa en cada iteración y asignando sucesivos valores a un objeto (vector, lista, etc).
+&lt;br&gt;&lt;br&gt;
+--
+
+- En caso de necesitar hacer un loop en R lo más común es que necesiten un for. 
+&lt;br&gt;&lt;br&gt;
+--
+
+- Tiene un código similar a la estructura if
+
+
+```r
+for (i in 1:5) {
+   print(i)
+}
+```
+&lt;br&gt;&lt;br&gt;
+--
+
+El contador i toma en cada iteración los valores 1, 2, 3, 4, 5 respectivamente y ejecuta el código dentro de las llaves. 
+
+---
+# Ejercicio 
+
+- Crea un vector llamado num que contenga los números enteros del 10 al 19
+
+- Crea un for que a cada uno de esos elementos le aplica la raíz cuadrada y se imprima el resultado
+
+- ¿Te parece necesario este for o se puede resolver más simple?
+
+---
+# Ejemplo
+
+- Si en vez de imprimir el resultado del for quiero guardarlo en un objeto debo crear antes ese objeto
+
+
+```r
+num &lt;- 10:19
+
+res &lt;- numeric(length = length(num))
+
+for (i in seq_along(num)) {
+  res[i] &lt;- sqrt(num[i])
+}
+
+res
+```
+
+```
+ [1] 3.162278 3.316625 3.464102 3.605551 3.741657 3.872983 4.000000 4.123106
+ [9] 4.242641 4.358899
+```
+--
+
+- Esto lo podía resolver más fácil haciendo: 
+
+```r
+res &lt;- sqrt(num)
+res
+```
+
+```
+ [1] 3.162278 3.316625 3.464102 3.605551 3.741657 3.872983 4.000000 4.123106
+ [9] 4.242641 4.358899
+```
+
+---
+# Ejemplo de for
+
+- Tengo 4 archivos en formato RDS para cargar.
+
+
+
+```r
+data_path &lt;- here::here("data")
+
+files &lt;- list.files(path = data_path, 
+                    pattern = "*.RDS",
+                    full.names = TRUE)                                                  
+```
+
+--
+- Ahora, escribimos un for que debe contener una asignación a los nombres de los objetos que cargo con readRDS()
+
+
+```r
+for (i in 1:length(files)) {                              
+  assign(paste0("sport", i), 
+         readRDS(files[i]))
+}
+```
+
+---
+# Vectorización
+
+- Una diferencia clave entre R y muchos otros lenguajes es un tema conocido como vectorización. 
+&lt;br&gt;&lt;br&gt;
+--
+
+- Estos ejemplos de loop for que vimos no tienen sentido en R porque hay formas más simples de programar esa tarea.
+&lt;br&gt;&lt;br&gt;
+--
+
+- Las funciones en general tienen incorporada la vectorización. 
+&lt;br&gt;&lt;br&gt;
+--
+
+- Incluso en este último ejemplo con la función lapply() de R base. 
+&lt;br&gt;&lt;br&gt;
+--
+
+- Más adelante veremos una solución con el paquete purrr del ecosistema tidyverse que viene a sustituir a las funciones *apply().
+
+
+---
+# ¿Son lentos los loops en R?
+
+- Sí, si los usamos en situaciones que podríamos aprovecharnos de la vectorización
+&lt;br&gt;&lt;br&gt;
+--
+
+- No hagas crecer los objetos (a través de c, cbind, etc) durante el loop, esto enlentece el for.
+&lt;br&gt;&lt;br&gt;
+--
+
+- Asigna un objeto para mantener los resultados y rellenalo durante el bucle
+&lt;br&gt;&lt;br&gt;
+--
+
+- Siempre que sea posible, utilize operaciones vectoriales en lugar de bucles for.
+&lt;br&gt;&lt;br&gt;
+--
+
+- Si tu solución a un problema en R es un for, probablemente no sea la mejor solución.
+
+
+---
+# Ejemplo: guardar varios archivos a la vez
+
+- Defino un vector con los nombres de los data frames
+&lt;br&gt;&lt;br&gt;
+--
+
+- Dentro del bucle for, especifico los nombres de nuestros df dentro de la función get() y la ruta del directorio:
+&lt;br&gt;&lt;br&gt;
+--
+
+
+```r
+library(readr)
+# nombres de los data frame
+data_names &lt;- c("sport1", "sport2", "sport3", "sport4")                    
+
+# pruebo que puedo guardar un archivo
+write_csv(get(data_names[1]),
+          here::here(data_path, "sport1.csv"))              
+```
+--
+- Ahora lo generalizo con un bucle for
+
+
+```r
+for (i in 1:length(data_names)) {     
+  write_csv(get(data_names[i]),
+            here::here(data_path, paste0("sport", i, ".csv"))
+            )              
+}
+```
+
+---
+# while
+
+- Los bucles while comienzan comprobando una condición. 
+&lt;br&gt;&lt;br&gt;
+--
+
+- Si esta es verdadera, entonces se entra al cuerpo del bucle. 
+&lt;br&gt;&lt;br&gt;
+--
+
+- Una vez completada una ejecución de este bloque, se comprueba la condición nuevamente y así sucesivamente hasta que la comprobación de la condición no se cumple.
+&lt;br&gt;&lt;br&gt;
+--
+
+
+```r
+while (&lt;condicion&gt;) {
+  # código
+}
+```
+--
+
+- Hay que tener cuidado en poner una condición que nunca se cumpla porque en este caso el while no se detendrá. 
+
+---
+# Ejemplo
+
+- Defino un objeto llamado count que tiene un valor inicial 0.
+
+
+```r
+count &lt;- 0
+```
+
+- Armo la estructura while que evaluará la condición que count sea menor a 10.
+--
+
+- Mientras la condición se cumpla, le adicionará 1 al objeto count, cuando deje de cumplirse la condición, se detiene.
+
+
+```r
+while (count &lt; 10) {
+  print(count)
+  count &lt;- count + 1
+}
+```
+
+```
+[1] 0
+[1] 1
+[1] 2
+[1] 3
+[1] 4
+[1] 5
+[1] 6
+[1] 7
+[1] 8
+[1] 9
+```
+---
+# repeat
+
+- La estructura repeat ejecuta un bucle infinitamente. 
+--
+
+- La única forma de terminar con el bucle es llamando dentro de este a la función break.
+
+- break nos permite interrumpir un bucle, mientras que next nos deja avanzar a la siguiente iteración del bucle, saltándose la actual. 
+
+
+```r
+repeat {
+  # código
+  # break para detenerlo
+}
+```
+
+---
+# Ejemplo
+
+- Generamos el objeto count que toma el valor 0.
+--
+- Vamos a adicionar 1 a count hasta que count tome el valor 10, en ese caso se corta el bucle.
+
+
+```r
+count &lt;- 0
+
+repeat {
+  print(count)
+  count &lt;- count + 1
+  if (count == 10) {
+    break
+  } 
+}
+```
+---
+# next
+
+- Hacemos un bucle for y salteamos una iteración cuando se cumple una condición usando next 
+
+
+```r
+for (i in 1:4) {
+  if (i == 3) {
+    next
+  }
+  print(i)
+}
+```
+
+&lt;!-- --- --&gt;
+&lt;!-- # Reciclaje --&gt;
+
+&lt;!-- Cuando se realizan operaciones vectoriales en R, es importante conocer el reciclaje. Si realiza una operación sobre dos o más vectores de longitud desigual, R reciclará los elementos del vector o vectores más cortos para que coincidan con el vector más largo. Por ejemplo: --&gt;
+
+&lt;!-- ```{r} --&gt;
+&lt;!-- a &lt;- 1:10 --&gt;
+&lt;!-- b &lt;- 1:5 --&gt;
+&lt;!-- a + b --&gt;
+&lt;!-- ``` --&gt;
+&lt;!-- Los elementos de a y b se suman empezando por el primer elemento de ambos vectores. Cuando R llega al final del vector más corto b, comienza de nuevo en el primer elemento de b y continúa hasta llegar al último elemento del vector más largo a. Este comportamiento puede parecer una locura a primera vista, pero es muy útil cuando se quiere realizar la misma operación en cada elemento de un vector. Por ejemplo, digamos que queremos multiplicar cada elemento de nuestro vector a por 5: --&gt;
+
+&lt;!-- ```{r} --&gt;
+&lt;!-- a &lt;- 1:10 --&gt;
+&lt;!-- b &lt;- 5 --&gt;
+&lt;!-- a * b --&gt;
+&lt;!-- ``` --&gt;
+
+&lt;!-- https://r4ds.had.co.nz/iteration.html --&gt;
+&lt;!-- https://statisticsglobe.com/for-loop-in-r --&gt;
+
+&lt;!-- list.files(path = "data", pattern = "csv", full.names = TRUE) --&gt;
+
+&lt;!-- --- --&gt;
+&lt;!-- # for anidados --&gt;
+
+
+&lt;!-- for loops can be nested inside of each other. --&gt;
+
+&lt;!-- x &lt;- matrix(1:6, 2, 3) --&gt;
+
+&lt;!-- for(i in seq_len(nrow(x))) { --&gt;
+&lt;!--         for(j in seq_len(ncol(x))) { --&gt;
+&lt;!--                 print(x[i, j]) --&gt;
+&lt;!--         }    --&gt;
+&lt;!-- } --&gt;
+
+&lt;!-- Nested loops are commonly needed for multidimensional or hierarchical data structures (e.g. matrices, lists). Be careful with nesting though. Nesting beyond 2 to 3 levels often makes it difficult to read/understand the code. If you find yourself in need of a large number of nested loops, you may want to break up the loops by using functions (discussed later). --&gt;
+
+&lt;!-- --- --&gt;
+&lt;!-- # while --&gt;
+
+&lt;!-- Cuando nos encontramos en la situación en la que no conocemos el número de iteraciones de antemano, podemos hacer uso del bucle while. Este bucle se ejecuta mientras se cumple una condición que se comprueba al principio de la construcción. --&gt;
+
+
+&lt;!-- While loops begin by testing a condition. If it is true, then they execute the loop body. Once the loop body is executed, the condition is tested again, and so forth, until the condition is false, after which the loop exits. --&gt;
+
+&lt;!-- &gt; count &lt;- 0 --&gt;
+&lt;!-- &gt; while(count &lt; 10) { --&gt;
+&lt;!-- +         print(count) --&gt;
+&lt;!-- +         count &lt;- count + 1 --&gt;
+&lt;!-- + } --&gt;
+&lt;!-- [1] 0 --&gt;
+&lt;!-- [1] 1 --&gt;
+&lt;!-- [1] 2 --&gt;
+&lt;!-- [1] 3 --&gt;
+&lt;!-- [1] 4 --&gt;
+&lt;!-- [1] 5 --&gt;
+&lt;!-- [1] 6 --&gt;
+&lt;!-- [1] 7 --&gt;
+&lt;!-- [1] 8 --&gt;
+&lt;!-- [1] 9 --&gt;
+
+&lt;!-- While loops can potentially result in infinite loops if not written properly. Use with care! --&gt;
+
+&lt;!-- Sometimes there will be more than one condition in the test. --&gt;
+
+&lt;!-- &gt; z &lt;- 5 --&gt;
+&lt;!-- &gt; set.seed(1) --&gt;
+&lt;!-- &gt;  --&gt;
+&lt;!-- &gt; while(z &gt;= 3 &amp;&amp; z &lt;= 10) { --&gt;
+&lt;!-- +         coin &lt;- rbinom(1, 1, 0.5) --&gt;
+&lt;!-- +          --&gt;
+&lt;!-- +         if(coin == 1) {  ## random walk --&gt;
+&lt;!-- +                 z &lt;- z + 1 --&gt;
+&lt;!-- +         } else { --&gt;
+&lt;!-- +                 z &lt;- z - 1 --&gt;
+&lt;!-- +         }  --&gt;
+&lt;!-- + } --&gt;
+&lt;!-- &gt; print(z) --&gt;
+&lt;!-- [1] 2 --&gt;
+
+&lt;!-- Conditions are always evaluated from left to right. For example, in the above code, if z were less than 3, the second test would not have been evaluated. --&gt;
+
+&lt;!-- --- --&gt;
+&lt;!-- # repeat --&gt;
+
+&lt;!-- repeat initiates an infinite loop right from the start. These are not commonly used in statistical or data analysis applications but they do have their uses. The only way to exit a repeat loop is to call break. --&gt;
+
+&lt;!-- One possible paradigm might be in an iterative algorith where you may be searching for a solution and you don’t want to stop until you’re close enough to the solution. In this kind of situation, you often don’t know in advance how many iterations it’s going to take to get “close enough” to the solution. --&gt;
+
+&lt;!-- x0 &lt;- 1 --&gt;
+&lt;!-- tol &lt;- 1e-8 --&gt;
+
+&lt;!-- repeat { --&gt;
+&lt;!--         x1 &lt;- computeEstimate() --&gt;
+
+&lt;!--         if(abs(x1 - x0) &lt; tol) {  ## Close enough? --&gt;
+&lt;!--                 break --&gt;
+&lt;!--         } else { --&gt;
+&lt;!--                 x0 &lt;- x1 --&gt;
+&lt;!--         }  --&gt;
+&lt;!-- } --&gt;
+
+&lt;!-- Note that the above code will not run if the computeEstimate() function is not defined (I just made it up for the purposes of this demonstration). --&gt;
+
+&lt;!-- The loop above is a bit dangerous because there’s no guarantee it will stop. You could get in a situation where the values of x0 and x1 oscillate back and forth and never converge. Better to set a hard limit on the number of iterations by using a for loop and then report whether convergence was achieved or not. --&gt;
+
+&lt;!-- --- --&gt;
+&lt;!-- # next, break --&gt;
+
+&lt;!-- next is used to skip an iteration of a loop. --&gt;
+
+&lt;!-- for(i in 1:100) { --&gt;
+&lt;!--         if(i &lt;= 20) { --&gt;
+&lt;!--                 ## Skip the first 20 iterations --&gt;
+&lt;!--                 next                  --&gt;
+&lt;!--         } --&gt;
+&lt;!--         ## Do something here --&gt;
+&lt;!-- } --&gt;
+
+&lt;!-- break is used to exit a loop immediately, regardless of what iteration the loop may be on. --&gt;
+
+&lt;!-- for(i in 1:100) { --&gt;
+&lt;!--       print(i) --&gt;
+
+&lt;!--       if(i &gt; 20) { --&gt;
+&lt;!--               ## Stop loop after 20 iterations --&gt;
+&lt;!--               break   --&gt;
+&lt;!--       }		 --&gt;
+&lt;!-- } --&gt;
+    </textarea>
+<style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
+<script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
+<script>var slideshow = remark.create({
+"highlightStyle": "github",
+"highlightLines": true,
+"countIncrementalSlides": false,
+"ratio": "16:9",
+"slideNumberFormat": "<div class=\"progress-bar-container\">\n  <div class=\"progress-bar\" style=\"width: calc(%current% / %total% * 100%);\">\n  </div>\n</div>"
+});
+if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
+  window.dispatchEvent(new Event('resize'));
+});
+(function(d) {
+  var s = d.createElement("style"), r = d.querySelector(".remark-slide-scaler");
+  if (!r) return;
+  s.type = "text/css"; s.innerHTML = "@page {size: " + r.style.width + " " + r.style.height +"; }";
+  d.head.appendChild(s);
+})(document);
+
+(function(d) {
+  var el = d.getElementsByClassName("remark-slides-area");
+  if (!el) return;
+  var slide, slides = slideshow.getSlides(), els = el[0].children;
+  for (var i = 1; i < slides.length; i++) {
+    slide = slides[i];
+    if (slide.properties.continued === "true" || slide.properties.count === "false") {
+      els[i - 1].className += ' has-continuation';
+    }
+  }
+  var s = d.createElement("style");
+  s.type = "text/css"; s.innerHTML = "@media print { .has-continuation { display: none; } }";
+  d.head.appendChild(s);
+})(document);
+// delete the temporary CSS (for displaying all slides initially) when the user
+// starts to view slides
+(function() {
+  var deleted = false;
+  slideshow.on('beforeShowSlide', function(slide) {
+    if (deleted) return;
+    var sheets = document.styleSheets, node;
+    for (var i = 0; i < sheets.length; i++) {
+      node = sheets[i].ownerNode;
+      if (node.dataset["target"] !== "print-only") continue;
+      node.parentNode.removeChild(node);
+    }
+    deleted = true;
+  });
+})();
+(function() {
+  "use strict"
+  // Replace <script> tags in slides area to make them executable
+  var scripts = document.querySelectorAll(
+    '.remark-slides-area .remark-slide-container script'
+  );
+  if (!scripts.length) return;
+  for (var i = 0; i < scripts.length; i++) {
+    var s = document.createElement('script');
+    var code = document.createTextNode(scripts[i].textContent);
+    s.appendChild(code);
+    var scriptAttrs = scripts[i].attributes;
+    for (var j = 0; j < scriptAttrs.length; j++) {
+      s.setAttribute(scriptAttrs[j].name, scriptAttrs[j].value);
+    }
+    scripts[i].parentElement.replaceChild(s, scripts[i]);
+  }
+})();
+(function() {
+  var links = document.getElementsByTagName('a');
+  for (var i = 0; i < links.length; i++) {
+    if (/^(https?:)?\/\//.test(links[i].getAttribute('href'))) {
+      links[i].target = '_blank';
+    }
+  }
+})();
+// adds .remark-code-has-line-highlighted class to <pre> parent elements
+// of code chunks containing highlighted lines with class .remark-code-line-highlighted
+(function(d) {
+  const hlines = d.querySelectorAll('.remark-code-line-highlighted');
+  const preParents = [];
+  const findPreParent = function(line, p = 0) {
+    if (p > 1) return null; // traverse up no further than grandparent
+    const el = line.parentElement;
+    return el.tagName === "PRE" ? el : findPreParent(el, ++p);
+  };
+
+  for (let line of hlines) {
+    let pre = findPreParent(line);
+    if (pre && !preParents.includes(pre)) preParents.push(pre);
+  }
+  preParents.forEach(p => p.classList.add("remark-code-has-line-highlighted"));
+})(document);</script>
+
+<script>
+slideshow._releaseMath = function(el) {
+  var i, text, code, codes = el.getElementsByTagName('code');
+  for (i = 0; i < codes.length;) {
+    code = codes[i];
+    if (code.parentNode.tagName !== 'PRE' && code.childElementCount === 0) {
+      text = code.textContent;
+      if (/^\\\((.|\s)+\\\)$/.test(text) || /^\\\[(.|\s)+\\\]$/.test(text) ||
+          /^\$\$(.|\s)+\$\$$/.test(text) ||
+          /^\\begin\{([^}]+)\}(.|\s)+\\end\{[^}]+\}$/.test(text)) {
+        code.outerHTML = code.innerHTML;  // remove <code></code>
+        continue;
+      }
+    }
+    i++;
+  }
+};
+slideshow._releaseMath(document);
+</script>
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+(function () {
+  var script = document.createElement('script');
+  script.type = 'text/javascript';
+  script.src  = 'https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML';
+  if (location.protocol !== 'file:' && /^https?:/.test(script.src))
+    script.src  = script.src.replace(/^https?:/, '');
+  document.getElementsByTagName('head')[0].appendChild(script);
+})();
+</script>
+  </body>
+</html>
